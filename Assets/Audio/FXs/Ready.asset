@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67c761f2c942b574a8eb51c9aa5e4b5b, type: 3}
+  m_Name: Ready
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: 7f226ffbe995a284ab516637e0a86a19, type: 3}
+  - {fileID: 8300000, guid: 878746a70a996e54a997580c6b71b8cc, type: 3}
+  - {fileID: 8300000, guid: 5ec56e73e61642b44a03ec49629e1c5e, type: 3}
+  - {fileID: 8300000, guid: fdc94a9699a43f3468e3f876a78c372d, type: 3}
+  - {fileID: 8300000, guid: 067f03ef35f7bb3469fe4c64de5ffe82, type: 3}
+  volume: {x: 0.5, y: 0.5}
+  useSemitones: 0
+  semitones: {x: 0, y: 0}
+  pitch: {x: 1, y: 1}
+  playOrder: 0
+  playIndex: 3

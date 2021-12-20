@@ -9,6 +9,7 @@ public class Manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.R)) FindObjectOfType<Bird>().ChangeStateToReady();
+        if (Input.GetKeyDown(KeyCode.R)) FindObjectOfType<Bird>().ChangeStateToReady();
+        if (Input.GetKeyDown(KeyCode.Escape)) Application.Quit();
     }
 }

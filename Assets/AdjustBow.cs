@@ -16,9 +16,9 @@ public class AdjustBow : MonoBehaviour
         //float gravity;
         if (float.TryParse(inputField.text, out float newPos))
         {
-            if (newPos > 2000 || newPos < 0)
+            if (newPos > 9999 || newPos < 0)
             {
-                TooltipScreenSpaceUI.ShowTooltip_Static("0~2000 only!");
+                TooltipScreenSpaceUI.ShowTooltip_Static("0~9999 only!");
                 LeanTween.delayedCall(1f, () => TooltipScreenSpaceUI.HideTooltip_Static());
             }
 

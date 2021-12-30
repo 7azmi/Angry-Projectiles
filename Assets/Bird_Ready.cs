@@ -40,7 +40,9 @@ public class Bird_Ready : MonoBehaviour, IState
     public void Exit()
     {
         //print(FindObjectOfType<Bow>().velocity);
+
         rb.AddForce(FindObjectOfType<Bow>().velocity, ForceMode2D.Impulse);
+
         rb.gravityScale = FindObjectOfType<Bow>().gravity;
 
         replyButton.gameObject.SetActive(true);

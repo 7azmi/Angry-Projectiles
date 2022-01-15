@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RTLTMPro;
 using TMPro;
 using CodeMonkey.Utils;
 
@@ -31,7 +32,8 @@ public class TooltipScreenSpaceUI : MonoBehaviour {
     }
 
     private void SetText(string tooltipText) {
-        textMeshPro.SetText(tooltipText);
+        textMeshPro.text = tooltipText;
+        //textMeshPro.SetText(tooltipText);
         textMeshPro.ForceMeshUpdate();
 
         Vector2 textSize = textMeshPro.GetRenderedValues(false);
@@ -45,7 +47,7 @@ public class TooltipScreenSpaceUI : MonoBehaviour {
 
         FunctionPeriodic.Create(() => {
             string abc = "qwertyuiopasdfghjklOQWEERTYSDVPIOSDFNMLM\n\n\n\n\n\n\n\n\n";
-            string text = "Subscribe to Code Monkey! ";
+            string text = "Subscribe to Code Monkey! ";//for sure!
             for (int i = 0; i < Random.Range(5, 200); i++) {
                 text += abc[Random.Range(0, abc.Length)];
             }
@@ -58,14 +60,19 @@ public class TooltipScreenSpaceUI : MonoBehaviour {
 
         Vector2 anchoredPosition = Input.mousePosition / canvasRectTransform.localScale.x;
 
-        if (anchoredPosition.x + backgroundRectTransform.rect.width > canvasRectTransform.rect.width) {
-            // Tooltip left screen on right side
-            anchoredPosition.x = canvasRectTransform.rect.width - backgroundRectTransform.rect.width;
-        }
-        if (anchoredPosition.y + backgroundRectTransform.rect.height > canvasRectTransform.rect.height) {
-            // Tooltip left screen on top side
-            anchoredPosition.y = canvasRectTransform.rect.height - backgroundRectTransform.rect.height;
-        }
+        //x
+        anchoredPosition.x = Mathf.Clamp(anchoredPosition.x, backgroundRectTransform.rect.width, canvasRectTransform.rect.width);
+        //y
+        anchoredPosition.y = Mathf.Clamp(anchoredPosition.y, 0 , canvasRectTransform.rect.height - backgroundRectTransform.rect.height);
+
+        //if (anchoredPosition.x + backgroundRectTransform.rect.width > canvasRectTransform.rect.width) {
+        //    // Tooltip left screen on right side
+        //    anchoredPosition.x = canvasRectTransform.rect.width - backgroundRectTransform.rect.width;
+        //}
+        //if (anchoredPosition.y + backgroundRectTransform.rect.height > canvasRectTransform.rect.height) {
+        //    // Tooltip left screen on top side
+        //    anchoredPosition.y = canvasRectTransform.rect.height - backgroundRectTransform.rect.height;
+        //}
 
         rectTransform.anchoredPosition = anchoredPosition;
     }

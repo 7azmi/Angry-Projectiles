@@ -6,7 +6,7 @@ using UnityEngine;
 public class AdjustBow : MonoBehaviour
 {
     public TMP_InputField inputField;
-    //public TextMeshProUGUI textHolder;
+    public TextMeshProUGUI textHolder;
 
 
 
@@ -18,7 +18,7 @@ public class AdjustBow : MonoBehaviour
         {
             if (newPos > 9999 || newPos < 0)
             {
-                TooltipScreenSpaceUI.ShowTooltip_Static("0~9999 only!");
+                TooltipScreenSpaceUI.ShowTooltip_Static("0~9999 فقط!");
                 LeanTween.delayedCall(1f, () => TooltipScreenSpaceUI.HideTooltip_Static());
             }
 
@@ -26,6 +26,8 @@ public class AdjustBow : MonoBehaviour
             else
             {
                 //newPos = Mathf.Clamp(newPos,0,2000);
+                textHolder.text = "الارتفاع: " + newPos.ToString() + " متر";
+
                 FindObjectOfType<Bow>().transform.position = new Vector3(0, newPos, 0);
 
                 Bird_Ready ready = FindObjectOfType<Bird_Ready>();

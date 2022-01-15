@@ -20,7 +20,7 @@ public class Timer : MonoBehaviour
 
     public void StartCounting()
     {
-        text.color = Color.white;
+        text.color = Color.black;
 
         timer = 0;
         text.gameObject.SetActive
@@ -40,12 +40,17 @@ public class Timer : MonoBehaviour
     {
         //float distance = 
         timer += Time.deltaTime;
-        text.text = $"Time: {timer.ToString("0.0")}s\n" +
-            $"Distance: {bird.transform.position.x.ToString("0.0")}m\n" +
-            $"Height: {bird.transform.position.y.ToString("0.0")}m\n" +
-            $"Velocity: {bird.ready.rb.velocity.ToString("0.0")}";
+        //text.text = $"Time: {timer.ToString("0.0")}s\n" +
+        //    $"Distance: {bird.transform.position.x.ToString("0.0")}m\n" +
+        //    $"Height: {bird.transform.position.y.ToString("0.0")}m\n" +
+        //    $"Velocity: {bird.ready.rb.velocity.ToString("0.0")}";
+        text.text = $"المدة: {timer.ToString("0.0")}ث\n" +
+           $"الإزاحة: {bird.transform.position.x.ToString("0.0")}م\n" +
+           $"الإرتفاع: {bird.transform.position.y.ToString("0.0")}م\n" +
+           $"س.ل.س: {bird.ready.rb.velocity.x.ToString("0.0")}م/ث\n" +
+           $"س.ل.ص: {bird.ready.rb.velocity.y.ToString("0.0")}م/ث";
 
-        
+
     }
 
     public void StopCounting()
@@ -53,10 +58,10 @@ public class Timer : MonoBehaviour
 
         this.enabled = false;
 
-        text.text = $"Time: {timer.ToString("0.0")}s\n" +
-            $"Distance: {bird.transform.position.x.ToString("0.0")}m";
-            //Height: 0.0m\n" +
-            //$"Velocity: {bird.ready.rb.velocity.ToString("0.0")}";
+        text.text = $"المدة: {timer.ToString("0.0")}ث\n" +
+           $"الإزاحة: {bird.transform.position.x.ToString("0.0")}م";
+        //Height: 0.0m\n" +
+        //$"Velocity: {bird.ready.rb.velocity.ToString("0.0")}";
 
         text.color = Color.red;
 

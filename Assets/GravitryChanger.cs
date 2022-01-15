@@ -12,7 +12,7 @@ public class GravitryChanger : MonoBehaviour
 
     private void Awake()
     {
-        textHolder.text = "Gravity = " + Physics2D.gravity.y.ToString();
+        textHolder.text = "الجاذبية: " + Physics2D.gravity.y.ToString() + " نيوتن";
         
     }
     public void OnValueChanged(string value)
@@ -22,9 +22,10 @@ public class GravitryChanger : MonoBehaviour
         if(float.TryParse(inputField.text, out float gravity))
         {
             Physics2D.gravity = new Vector2(0, gravity);
-            print("it works");
+            //print("it works");
         }
         //Physics2D.gravity = new Vector2(0, 
-        textHolder.text = "Gravity = " + Physics2D.gravity.y.ToString();
+        textHolder.text = "الجاذبية: " + Physics2D.gravity.y.ToString() + " نيوتن";
+
     }
 }

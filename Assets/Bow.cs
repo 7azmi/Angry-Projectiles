@@ -2,92 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using System.Linq;
+using System;
 
 public class Bow : MonoBehaviour
 {
-    //    public GameObject TrajectoryPointPrefeb;
-    //    public GameObject BallPrefb;
-
-    //    private GameObject ball;
-    //    private bool isPressed, isBallThrown;
-    //    private float power = 25;
-    //    private int numOfTrajectoryPoints = 30;
-    //    private List<GameObject> trajectoryPoints;
-    //    //---------------------------------------	
-    //    void Start()
-    //    {
-    //        trajectoryPoints = new List<GameObject>();
-    //        isPressed = isBallThrown = false;
-    //        for (int i = 0; i < numOfTrajectoryPoints; i++)
-    //        {
-    //            GameObject dot = (GameObject)Instantiate(TrajectoryPointPrefeb);
-    ////            dot.GetComponent<Renderer>().enabled = false;
-    //            trajectoryPoints.Insert(i, dot);
-    //        }
-    //    }
-    //    //---------------------------------------	
-    //    void Update()
-    //    {
-    //        if (isBallThrown)
-    //            return;
-    //        if (Input.GetMouseButtonDown(0))
-    //        {
-    //            isPressed = true;
-    //            if (!ball)
-    //                createBall();
-    //        }
-    //        else if (Input.GetMouseButtonUp(0))
-    //        {
-    //            isPressed = false;
-    //            if (!isBallThrown)
-    //            {
-    //                throwBall();
-    //            }
-    //        }
-    //        if (isPressed)
-    //        {
-    //            Vector3 vel = GetForceFrom(ball.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition));
-    //            float angle = Mathf.Atan2(vel.y, vel.x) * Mathf.Rad2Deg;
-    //            transform.eulerAngles = new Vector3(0, 0, angle);
-    //            setTrajectoryPoints(transform.position, vel / ball.rigidbody.mass);
-    //        }
-    //    }
-    //    //---------------------------------------	
-    //    // When ball is thrown, it will create new ball
-    //    //---------------------------------------	
-    //    private void createBall()
-    //    {
-    //        ball = (GameObject)Instantiate(BallPrefb);
-    //        Vector3 pos = transform.position;
-    //        pos.z = 1;
-    //        ball.transform.position = pos;
-    //        ball.SetActive(false);
-    //    }
-    //    //---------------------------------------	
-    //    private void throwBall()
-    //    {
-    //        ball.SetActive(true);
-    //        ball.rigidbody.useGravity = true;
-    //        ball.rigidbody.AddForce(GetForceFrom(ball.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition)), ForceMode.Impulse);
-    //        isBallThrown = true;
-    //    }
-    //---------------------------------------	
-    //private Vector2 GetForceFrom(Vector3 fromPos, Vector3 toPos)
-    //{
-    //    return (new Vector2(toPos.x, toPos.y) - new Vector2(fromPos.x, fromPos.y)) * power;//*ball.rigidbody.mass;
-    //}
-    ////---------------------------------------	
-    // It displays projectile trajectory path
-    //---------------------------------------	
-
-
     public Bird birdy;
     public GameObject pointPrefab;
     public GameObject pointsParent;
     GameObject[] pointsCollecter;
     public int points = 10;
 
-    public Vector2 velocity;
+    public Vector2 velocity; //the bad boy
     //public float Velocity { get { return Mathf.Sqrt((velocity.x * velocity.x) + (velocity.y * velocity.y)); }}
     public float avgVelocity;
     public float angle;
@@ -106,7 +32,7 @@ public class Bow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if(Input.)
+
     }
 
     void CreatePoints()
@@ -140,10 +66,16 @@ public class Bow : MonoBehaviour
             fTime += 0.1f;
         }
 
-        string data = $"Velocity: {avgVelocity.ToString("0.0")}m/s\n" +
-            $"Angle: {angle.ToString("0.0")}°\n" +
-            $"Vx:{velocity.x.ToString("0.0")}m/s\n" +
-            $"Vy:{velocity.y.ToString("0.0")}m/s";
+        //string data = $"Velocity: {avgVelocity.ToString("0.0")}m/s\n" +
+        //    $"Angle: {angle.ToString("0.0")}°\n" +
+        //    $"Vx:{velocity.x.ToString("0.0")}m/s\n" +
+        //    $"Vy:{velocity.y.ToString("0.0")}m/s";
+        //TooltipScreenSpaceUI.ShowTooltip_Static(data);
+
+        string data = $"السرعة: {avgVelocity.ToString("0.0")}م/ث\n" +
+            $"الزاوية: {angle.ToString("0.0")}°\n" +
+            $"س.ل.س: {velocity.x.ToString("0.0")}م/ث\n" +
+            $"س.ل.ص: {velocity.y.ToString("0.0")}م/ث";
         TooltipScreenSpaceUI.ShowTooltip_Static(data);
     }
 
@@ -161,32 +93,95 @@ public class Bow : MonoBehaviour
 
     }
 
+    bool ctrlPressed;
+    bool sheftPressed;
+
+    float lockedAngle;
+    Vector2 lockedDir;
     private void OnMouseDrag()
     {
-
         float zFromBowToCam = transform.position.z - Camera.main.transform.position.z;
 
         Vector3 mousePos = Input.mousePosition;
         mousePos.z = zFromBowToCam; // select distance = 10 units from the camera
 
+        Vector2 generatedVelocity = -(transform.position - Camera.main.ScreenToWorldPoint(mousePos)) * BowPower.bowPower;
 
-        if(Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
+        //sheft => to adjust to famous angles 15+ (just like in photoshop)
+        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) sheftPressed = true;
+        else if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift)) sheftPressed = false;
+        //control => to lock angle
+        if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl))
+        { 
+            ctrlPressed = true;
+            lockedDir = generatedVelocity;
+            lockedAngle = (Mathf.Atan2(generatedVelocity.y, generatedVelocity.x));
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.RightControl)) ctrlPressed = false;
+
+
+        if(ctrlPressed)
         {
+            //adjust generated velocity to locked angle
+            //float AngleDisplacement = lockedAngle - ((Mathf.Rad2Deg * Mathf.Atan2(generatedVelocity.y, generatedVelocity.x)));
+            float mag = generatedVelocity.magnitude;
+            float x = lockedDir.x * Mathf.Cos(lockedAngle) - lockedDir.y * Mathf.Sin(lockedAngle);
+            float y = lockedDir.x * Mathf.Sin(lockedAngle) + lockedDir.y * Mathf.Cos(lockedAngle);
 
+            generatedVelocity = new Vector2(x, y);
+            generatedVelocity = lockedDir.normalized * mag;
+            velocity = -generatedVelocity;
+
+            //velocity =  Quaternion.Euler(0, AngleDisplacement, 0) * generatedVelocity;
+            //float newX = generatedVelocity.x * Mathf.Cos(AngleDisplacement) - generatedVelocity.y * Mathf.Sin(AngleDisplacement);
+            //float newY = generatedVelocity.x * Mathf.Sin(AngleDisplacement) + generatedVelocity.y * Mathf.Cos(AngleDisplacement);
+            //velocity = new Vector2(newX, newY);
+            //print(lockedAngle);
+            //velocity = generatedVelocity * Mathf.Cos(AngleDisplacement * Mathf.Deg2Rad);
+            //Debug.Log(Mathf.Cos(AngleDisplacement * Mathf.Deg2Rad));
+            //Vector2 changeAtAngle = generatedVelocity = -(lockedVector * avgRatio);
+
+        }else if (sheftPressed)
+        {
+            float fixedAngle = NearestAngle(Mathf.Atan2(generatedVelocity.y, generatedVelocity.x) * Mathf.Rad2Deg);
+            //print(fixedAngle);
+            float mag = generatedVelocity.magnitude;
+            Vector2 ceen = new Vector2(1, 0);
+            float x = ceen.x * Mathf.Cos(fixedAngle) - ceen.y * Mathf.Sin(fixedAngle);
+            float y = ceen.x * Mathf.Sin(fixedAngle) + ceen.y * Mathf.Cos(fixedAngle);
+
+            generatedVelocity = new Vector2(x, y);
+            generatedVelocity = generatedVelocity.normalized * mag;
+            velocity = -generatedVelocity;
+        }
+        else
+        {
+            velocity = -generatedVelocity;
         }
 
-        velocity = (transform.position - Camera.main.ScreenToWorldPoint(mousePos)) * BowPower.bowPower;
-        //print(transform.position);
-        //print(
-        AdjustPoints(transform.position, velocity);//velocity
+        AdjustPoints(transform.position, velocity);
 
+    }
+
+    float[] famousAngles = new float[] {-180, -165, -150, -135, -120 ,-105, -90, -75, -60, -45, -30, -15,
+        0, 15, 30, 45, 60, 75, 90, 105, 120, 135, 150, 165, 180 };
+
+    float NearestAngle(float angle)
+    {
+        //float nearestAngle = famousAngles.OrderBy(v => Math.Abs((float)v - (angle))).First();
+        //print(angle);
+        return famousAngles.OrderBy(v => Math.Abs((float)v - angle)).First() * Mathf.Deg2Rad;
     }
 
     private void OnMouseUp()
     {
+        sheftPressed = false;
+        ctrlPressed = false;
         HidePoints();
         TooltipScreenSpaceUI.HideTooltip_Static();
         birdy.ChangeState(birdy.flying);
 
     }
+
+    
 }

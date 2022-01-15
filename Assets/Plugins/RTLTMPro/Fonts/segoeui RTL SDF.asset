@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hashCode: 451290076
   material: {fileID: 21623836076631360}
-  materialHashCode: 1086130391
+  materialHashCode: -1534353028
   m_Version: 1.1.0
   m_SourceFontFileGUID: 249445261b6c401438d2bf6d7c207747
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 249445261b6c401438d2bf6d7c207747,
@@ -22,6 +22,7 @@ MonoBehaviour:
   m_SourceFontFile: {fileID: 12800000, guid: 249445261b6c401438d2bf6d7c207747, type: 3}
   m_AtlasPopulationMode: 0
   m_FaceInfo:
+    m_FaceIndex: 0
     m_FamilyName: Segoe UI
     m_StyleName: 
     m_PointSize: 42
@@ -3016,6 +3017,8 @@ MonoBehaviour:
   m_AtlasTextures:
   - {fileID: 28747511963361872}
   m_AtlasTextureIndex: 0
+  m_IsMultiAtlasTexturesEnabled: 0
+  m_ClearDynamicDataOnBuild: 0
   m_UsedGlyphRects: []
   m_FreeGlyphRects: []
   m_fontInfo:
@@ -4535,6 +4538,7 @@ MonoBehaviour:
     kerningPairs: []
   m_FontFeatureTable:
     m_GlyphPairAdjustmentRecords: []
+  fallbackFontAssets: []
   m_FallbackFontAssetTable:
   - {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   - {fileID: 11400000, guid: 2b55873cf640142479f769f70844b03a, type: 2}
@@ -4613,7 +4617,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: segoeui RTL SDF Material
   m_Shader: {fileID: 4800000, guid: 68e6db2ebdc24f95958faec2be5558d6, type: 3}
-  m_ShaderKeywords: 
+  m_ShaderKeywords: BEVEL_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -4686,7 +4690,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _Diffuse: 0.5
     - _DstBlend: 0
-    - _FaceDilate: 0
+    - _FaceDilate: -0.47
     - _FaceShininess: 0
     - _FaceUVSpeedX: 0
     - _FaceUVSpeedY: 0
@@ -4713,11 +4717,12 @@ Material:
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
     - _ScaleRatioA: 0.8333333
-    - _ScaleRatioB: 0.6770833
-    - _ScaleRatioC: 0.6770833
+    - _ScaleRatioB: 1.06875
+    - _ScaleRatioC: 1.06875
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0
+    - _Sharpness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SpecularPower: 2
@@ -4772,6 +4777,8 @@ Texture2D:
   m_TextureFormat: 1
   m_MipCount: 1
   m_IsReadable: 0
+  m_IgnoreMasterTextureLimit: 0
+  m_IsPreProcessed: 0
   m_StreamingMipmaps: 0
   m_StreamingMipmapsPriority: 0
   m_AlphaIsTransparency: 0

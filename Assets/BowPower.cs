@@ -8,12 +8,14 @@ public class BowPower : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        //OnValueChanged();
+        GetComponent<UnityEngine.UI.Scrollbar>().value = .2f; //Random.Range(0.f, 1f);
     }
 
     public void OnValueChanged()
     {
-        float value = Mathf.Clamp(GetComponent<UnityEngine.UI.Scrollbar>().value, 0.1f, 1);
-        bowPower = 20 * value;
+        float value = Mathf.Clamp(GetComponent<UnityEngine.UI.Scrollbar>().value, 0.05f, 1);
+
+        bowPower = 50 * value;
     }
 }

@@ -1,5 +1,4 @@
 using DTT.Utils.Extensions;
-using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class RichTextBehaviour : MonoBehaviour
@@ -17,12 +16,5 @@ public class RichTextBehaviour : MonoBehaviour
         // Add color to your strings.
         string coloredText = "This text needs to be logged in a nice red color.";
         Debug.Log(coloredText.Color(new Color32(230, 84, 64, 255)));
-
-        float angle = 12.3f;
-        
-        string mine = $" angle : {angle.ToString().Color(Color.red)}";
-        print(mine);
-
-
     }
 }

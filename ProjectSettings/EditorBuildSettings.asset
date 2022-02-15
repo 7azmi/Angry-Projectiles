@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Blueprint.unity
+    guid: 94c2abe84d4213843b6ed950efeae072
   m_configObjects: {}

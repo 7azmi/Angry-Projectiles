@@ -42,6 +42,9 @@ TagManager:
   - name: BG
     uniqueID: 833741525
     locked: 0
+  - name: Blueprint
+    uniqueID: 1835429019
+    locked: 0
   - name: Bow
     uniqueID: 761543169
     locked: 0

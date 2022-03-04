@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class Test2 : MonoBehaviour
 {
-
+    [ContextMenu("press me baby")]
+    void test()
+    {
+        print(transform.position);
+    }
     //public float slowMotionTimeScale = 0.5f;
     //public bool slowMotionEnabled = false;
 

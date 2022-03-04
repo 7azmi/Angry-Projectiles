@@ -104,12 +104,14 @@ public class Bow : MonoBehaviour
     Vector2 lockedDir;
     private void OnMouseDrag()
     {
-        float zFromBowToCam = transform.position.z - Camera.main.transform.position.z;
 
         Vector3 mousePos = Input.mousePosition;
-        mousePos.z = zFromBowToCam; // select distance = 10 units from the camera
+        mousePos.z = 0;
+        //float zFromBowToCam = transform.position.z - Camera.main.transform.position.z;
+        //mousePos.z = zFromBowToCam; // select distance = 10 units from the camera
 
         Vector2 generatedVelocity = -(transform.position - Camera.main.ScreenToWorldPoint(mousePos)) * BowPower.bowPower;
+        
 
         //sheft => to adjust to famous angles 15+ (just like in photoshop)
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) sheftPressed = true;
